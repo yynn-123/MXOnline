@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.users.apps.UsersConfig',
+    'apps.courses.apps.CoursesConfig'
 ]
 
 MIDDLEWARE = [
@@ -118,7 +120,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-
+AUTH_USER_MODEL = "users.UserProfile"
 
 
 # Static files (CSS, JavaScript, Images)
