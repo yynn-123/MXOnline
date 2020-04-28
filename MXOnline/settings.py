@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'apps.courses.apps.CoursesConfig',
     'crispy_forms',
     'xadmin.apps.XAdminConfig',
-    'apps.organization.apps.OrganizationConfig',
+    'apps.organizations.apps.OrganizationConfig',
     'apps.operations.apps.OperationsConfig'
 ]
 
