@@ -31,10 +31,10 @@ urlpatterns = [
     path('login/',LoginView.as_view(),name='login'),
     #配置授课机构列表展示
     #path('orglist/',OrgView.as_view(),name='org_list'),
-    path('courselist/',CouView.as_view(),name = 'course-list'),
+
     # 授课机构相关操作
     url(r'^org/',include(('apps.organizations.urls','organizations'),namespace='org')),
-
+    url(r'^course/', include(('apps.courses.urls', 'courses'), namespace='course')),
 
 
 
