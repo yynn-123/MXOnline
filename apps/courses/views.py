@@ -12,7 +12,7 @@ class CouView(View):
         :return:
         """
         course = Course.objects.all()
-        hot_course = course.order_by('-click_nums') [:3]
+        hot_course = course.order_by('-click_nums')[:3]
         sort = request.GET.get('sort','')
         if sort == 'hot':
             course = course.order_by('-click_nums')
@@ -24,4 +24,4 @@ class CouView(View):
             page = 1
         p = Paginator(course, per_page=3, request=request)
         courses = p.page(page)
-        return render(request,'course-list.html',{"course":course,'courses':courses,'sort':sort,})
+        return render(request,'course-list.html',{"course":course,'courses':courses,'sort':sort,'hot_course':hot_course})
