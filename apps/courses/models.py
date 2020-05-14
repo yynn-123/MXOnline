@@ -25,6 +25,8 @@ class Course(BaseModel):
         verbose_name_plural = verbose_name
     def __str__(self):
        return self.name
+    def lesson_nums(self):
+        return self.lesson_set.all().count()
 
 class Lesson(BaseModel):
     #on_delete表示对应的外键数据被删除后，当前数据怎么办
