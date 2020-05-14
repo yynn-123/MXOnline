@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'xadmin.apps.XAdminConfig',
     'apps.organizations.apps.OrganizationConfig',
     'pure_pagination',
-    'apps.operations.apps.OperationsConfig'
+    'apps.operations.apps.OperationsConfig',
 ]
 
 MIDDLEWARE = [
@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'MXOnline.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mxonline', # 数据库名字
+        'NAME': 'mxonline2',
         'USER':'root',
         'PASSWORD':'root',
         'HOST':'localhost',

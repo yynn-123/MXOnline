@@ -8,9 +8,9 @@
             <div class="left layout">
                 <div class="head">
                     <ul class="tab_header">
-                        <li class="active"><a href="?sort=">最新 </a></li>
-                        <li><a href="?sort=hot">最热门</a></li>
-                        <li><a href="?sort=students">参与人数</a></li>
+                        <li class="{% if sort == '' %}active{% endif %}"><a href="?sort=">最新 </a></li>
+                        <li class="{% if sort == 'hot' %}active{% endif %}"><a href="?sort=hot">最热门</a></li>
+                        <li class="{% if sort == 'students' %}active{% endif %}"><a href="?sort=students">参与人数</a></li>
                     </ul>
                 </div>
 
@@ -32,7 +32,7 @@
                                         <span class="fr">学习人数：{{ cou.students }}&nbsp;</span>
                                     </div>
                                     <div class="bottom">
-                                        <a href="course-detail.html"><span class="fl">来自慕学网666</span></a>
+                                        <a href="course-detail.html"><span class="fl">{{ 111 }}</span></a>
                                         <span class="star fr  notlogin
                                         " data-favid="15">
                                         0
@@ -80,44 +80,22 @@
                 <div class="head">热门课程推荐</div>
                 <div class="group_recommend">
 
-                    <dl>
+                    {% for cou in hot_course %}
+                        <dl>
                         <dt>
                             <a target="_blank" href="">
                                 <img width="240" height="220" class="scrollLoading"
-                                     src="../media/courses/2020/05/neusoft.jpg"/>
+                                     src="{{ cou.image.url }}"/>
                             </a>
                         </dt>
                         <dd>
-                            <a target="_blank" href=""><h2> django与vuejs实战项目2</h2></a>
-                            <span class="fl">难度：<i class="key">高级</i></span>
+                            <a target="_blank" href=""><h2> {{ cou.name }}</h2></a>
+                            <span class="fl">难度：<i class="key">{{ cou.degree }}</i></span>
                         </dd>
                     </dl>
+                    {% endfor %}
 
-                    <dl>
-                        <dt>
-                            <a target="_blank" href="">
-                                <img width="240" height="220" class="scrollLoading"
-                                     src="../media/courses/2020/05/neusoft.jpg"/>
-                            </a>
-                        </dt>
-                        <dd>
-                            <a target="_blank" href=""><h2> python面向对象</h2></a>
-                            <span class="fl">难度：<i class="key">中级</i></span>
-                        </dd>
-                    </dl>
 
-                    <dl>
-                        <dt>
-                            <a target="_blank" href="">
-                                <img width="240" height="220" class="scrollLoading"
-                                     src="../media/courses/2020/05/neusoft.jpg"/>
-                            </a>
-                        </dt>
-                        <dd>
-                            <a target="_blank" href=""><h2> python文件处理</h2></a>
-                            <span class="fl">难度：<i class="key">中级</i></span>
-                        </dd>
-                    </dl>
 
 
                 </div>

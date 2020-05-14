@@ -33,7 +33,6 @@ class OrgView(View):
         sort = request.GET.get('sort', '')
         if sort == 'student':
             # 根据学生人数排序
-
             all_orgs = all_orgs.order_by('-students')
         elif sort == 'courses':
             # 根据课程数排序
