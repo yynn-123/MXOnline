@@ -50,7 +50,7 @@
                                 </ul>
                                 <div class="btns">
                                     <div class="btn colectgroupbtn" id="jsLeftBtn">
-                                        收藏
+                                        {% if has_fav_course %}已收藏{% else %}未收藏{% endif %}
                                     </div>
                                     <div class="buy btn"><a style="color: white" href="course-video.html">开始学习</a></div>
                                 </div>
@@ -86,7 +86,7 @@
                                 </a>
                                 <div class="btn  notlogin
 					     " data-favid="14" id="jsRightBtn">
-                                    已收藏
+                                    {% if has_fav_org %}已收藏{% else %}未收藏{% endif %}
                                 </div>
                                 <div class="clear">
                                     <ul>
@@ -247,7 +247,51 @@
     </section>
 {% endblock %}
 
+{% block custom_js %}
+     <script>
+    {#课程收藏和机构收藏的实现#}
 
+
+        function add_fav(current_element,fav_id,fav_type){
+          $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: '{% url 'op:fav' %}',
+                    async: true,
+                    data: {'fav_id':fav_id,'fav_type':fav_type},
+                    beforeSend:function(xhr,setting){
+                        xhr.setRequestHeader("X-CRFToken",'{{ csrf_token }}')
+                    },
+                    success: function (data) {
+                        if (data.status == 'fail') {
+                            if (data.msg == '用户未登录'){
+                                window.location.href = {% url 'login'%}
+                            }else{
+                                alert(data.msg)
+                            }
+
+                        } else if (data.status == 'success') {
+                            current_element.text(data.msg)
+                        }
+                    }
+                    })
+
+        }
+        $(document).ready(function () {
+            $('#jsLeftBtn').on('click',function () {
+                add_fav($(this),{{ course.id }},1)
+            })
+        })
+
+
+
+        $(document).ready(function () {
+            $('#jsRightBtn').on('click',function () {
+                add_fav($(this),{{ course.course_org.id }},2)
+            })
+        })
+    </script>
+{% endblock %}
 
 
 
