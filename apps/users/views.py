@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.views.generic.base import View
 from django.http import HttpResponse, HttpResponseRedirect
 from apps.users.form import LoginForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login,logout
 from django.urls import reverse
 
 from apps.users.models import UserProfile
@@ -47,5 +47,10 @@ class LoginView(View):
         # else:
         #     return HttpResponse('不存在')
 
+
+class LoginOutView(View):
+    def get(self,request,*args,**kwargs):
+        logout(request)
+        return HttpResponseRedirect(reverse("index"))
 
 

@@ -24,6 +24,7 @@ class CourseOrg(BaseModel):
     is_classics = models.BooleanField(default=False, verbose_name='是否认证')
     is_gold = models.BooleanField(default=False, verbose_name="是否金牌")
     city = models.ForeignKey(City, on_delete=models.CASCADE, verbose_name="所在城市")
+    desc = models.CharField(max_length=200, verbose_name=u"描述", default="")
 
     def courses(self):
         courses = self.course_set.filter(is_classics=True)[:3]
