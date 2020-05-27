@@ -1,0 +1,56 @@
+import pymysql
+pymysql.install_as_MySQLdb()
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'test1', # 数据库名字
+        'USER':'root',
+        'PASSWORD':'root',
+        'HOST':'localhost',
+        'PORT':3306,
+    }
+}
+
+from django.db import models
+
+# Create your models here.
+class BookInfo(models.Model):
+    btitle = models.CharField(max_length=20)
+    bpub_date = models.DateField()
+    bread = models.IntegerField(default=0)
+    bcomment = models.IntegerField(default=0)
+    isDelete = models.BooleanField(default=False)
+
+class HeroInfo(models.Model):
+    hname = models.CharField(max_length=20)
+    hgender = models.BooleanField(default=True)
+    hcomment = models.CharField(max_length=200)
+    isDelete = models.BooleanField(default=False)
+    hbook = models.ForeignKey('BookInfo')
+
+'DIRS': [os.path.join(BASE_DIR, "templates")],
+
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,'static')
+]
+
+response.set_cookie('h1',bytes('你好','utf-8').decode('ISO-8859-1'))
+
+if 'h1' in request.COOKIES:
+      response.write('<h1>'+request.COOKIES['h1'].encode('ISO-8859-1').decode('utf-8')+'</h1>')
+
+
+# Register your models here.
+from booktest.models import BookInfo,HeroInfo
+class BookInfoAdmin(admin.ModelAdmin):
+    list_display = ['id','btitle','bpub_date']
+class HeroInfoAdmin(admin.ModelAdmin):
+    list_display = ['hname','hgender','hcomment']
+
+
+admin.site.register(BookInfo,BookInfoAdmin)
+admin.site.register(HeroInfo,HeroInfoAdmin)
+

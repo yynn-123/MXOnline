@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import View
 from apps.courses.models import *
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
-from apps.operations.models import UserFavorite,UserCourse
+from apps.operations.models import UserFavorite,UserCourse,CourseComments
 
 
 # Create your views here
@@ -93,4 +93,69 @@ class CourseLessonView(View):
             'course': course,
             'course_resource':course_resource,
             'related_courses':related_courses
+        })
+
+
+class CourseCommentsView(View):
+    """
+       评论信息
+       """
+    login_url = '/login'
+
+    def get(self, request, course_id, *args, **kwargs):
+        course = Course.objects.get(id=int(course_id))
+        course.click_nums += 1
+        course.save()
+
+        comments = CourseComments.objects.filter(course=course)
+
+        user_course = UserCourse.objects.filter(course=course)
+        user_ids = [user_course.user.id for user_course in user_course]
+        all_courses = UserCourse.objects.filter(user_id__in=user_ids).order_by("-course__click_nums")[:5]
+        # 过滤掉当前课程
+        related_courses = []
+        for item in all_courses:
+            if item.course.id != course.id:
+                related_courses.append(item.course)
+
+        course_resource = CourseResource.objects.filter(course=course)
+        return render(request, 'course-comment.html', {
+            'course': course,
+            'course_resource': course_resource,
+            'related_courses': related_courses,
+            'comments':comments,
+        })
+
+
+
+class VideoView(View):
+    login_url = '/login'
+
+    def get(self, request, course_id,video_id, *args, **kwargs):
+        course = Course.objects.get(id=int(course_id))
+        course.click_nums += 1
+        course.save()
+
+
+        video = Video.objects.get(id = int(video_id))
+
+
+
+
+
+        user_course = UserCourse.objects.filter(course=course)
+        user_ids = [user_course.user.id for user_course in user_course]
+        all_courses = UserCourse.objects.filter(user_id__in=user_ids).order_by("-course__click_nums")[:5]
+        # 过滤掉当前课程
+        related_courses = []
+        for item in all_courses:
+            if item.course.id != course.id:
+                related_courses.append(item.course)
+
+        course_resource = CourseResource.objects.filter(course=course)
+        return render(request, 'course-play.html', {
+            'course': course,
+            'course_resource': course_resource,
+            'related_courses': related_courses,
+            'video':video
         })

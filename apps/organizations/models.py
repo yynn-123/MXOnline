@@ -39,7 +39,7 @@ class CourseOrg(BaseModel):
 
 class Teacher(BaseModel):
     user = models.OneToOneField(UserProfile, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="用户")
-    orname = models.CharField(verbose_name="所属机构",max_length=200)
+    orname = models.ForeignKey(CourseOrg,verbose_name="所属机构",on_delete=models.CASCADE)
     name = models.CharField(max_length=20, verbose_name='教师名称')
     work_years =models.IntegerField(default=0,verbose_name='工作年限(年)')
     work_company = models.CharField(max_length=200,verbose_name="就职公司")
